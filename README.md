@@ -1,1 +1,1 @@
-# rollingstone-best-albums
+https://shoneal.github.io/rollingstone-best-albums/
