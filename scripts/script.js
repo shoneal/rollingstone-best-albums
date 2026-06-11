@@ -49,11 +49,12 @@ const initializeHeaderImages = (data, container, caption) => {
   for (const key of randomElements) {
     const { author } = data[key];
     const img = Object.assign(document.createElement("img"), {
-      src: getImagePath("header/desktop", author),
-      srcset: `${getImagePath("header/mobile", author)} 300w, ${getImagePath(
-        "header/desktop",
+      src: getImagePath(basicLink, "header/desktop", author),
+      srcset: `${getImagePath(
+        basicLink,
+        "header/mobile",
         author,
-      )} 2400w`,
+      )} 300w, ${getImagePath(basicLink, "header/desktop", author)} 2400w`,
       sizes: "100vw",
       alt: author,
       onload: complete,
@@ -92,11 +93,16 @@ const renderSlides = (object) => {
       const artistAndName = `${data.author} '${key}'`;
 
       img.style.opacity = "0";
-      img.src = getImagePath("covers/872", key);
-      img.srcset = `${getImagePath("covers/320", key)} 320w, ${getImagePath(
+      img.src = getImagePath(basicLink, "covers/872", key);
+      img.srcset = `${getImagePath(
+        basicLink,
+        "covers/320",
+        key,
+      )} 320w, ${getImagePath(
+        basicLink,
         "covers/640",
         key,
-      )} 640w, ${getImagePath("covers/872", key)} 872w`;
+      )} 640w, ${getImagePath(basicLink, "covers/872", key)} 872w`;
       img.alt = artistAndName;
       showImage(img);
 
