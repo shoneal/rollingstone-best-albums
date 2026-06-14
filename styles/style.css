@@ -13,6 +13,7 @@
 .slide {
   display: flex;
   flex-direction: row-reverse;
+  justify-content: space-between;
   border: 3px solid var(--border);
   padding: 18px 18px 12px;
 }
@@ -87,7 +88,7 @@
   .article-kicker {
     font-size: 18px;
     line-height: 18px;
-  }  
+  }
 
   .slide-figure-wrapper {
     max-width: 100%;
@@ -108,6 +109,10 @@
 
   .slide-figure-wrapper {
     margin: 24px 0 20px;
+  }
+
+  .slide-title {
+    margin-top: 0.5rem;
   }
 
   .slide-subtitle {
