@@ -1,5 +1,8 @@
 import { data } from "https://shoneal.github.io/rollingstone/scripts/data.js";
-import { allLinks } from "https://shoneal.github.io/rollingstone/scripts/links.js";
+import {
+  listsLinks,
+  coversLinks,
+} from "https://shoneal.github.io/rollingstone/scripts/links.js";
 import {
   changingTheme,
   switchingStickinessHeader,
@@ -12,7 +15,9 @@ import {
 import {
   initBodyElements,
   getSectionContext,
-  renderAuthorLinks,
+  createResponsiveImage,
+  initializeHeaderImages,
+  renderLastArticlesAndDate,
   createNavigation,
   updateActiveLink,
   handleNavigationClick,
@@ -27,50 +32,11 @@ const platforms = {
 }; // Платформы для ссылок на альбомы
 const bodyElements = initBodyElements(); // Элементы тела страницы
 const { basicLink, currentData, dataLength } = getSectionContext(
+  bodyElements.url,
   section,
   data,
   kebabToCamel,
 ); // Главная ссылка, данные по имени секции и длина объекта
-const initializeHeaderImages = (data, container, caption) => {
-  const elements = Object.entries(data)
-    .filter(([, { photo }]) => photo)
-    .map(([key]) => key);
-
-  const randomElements = [];
-  while (randomElements.length < 3) {
-    const key = elements[Math.floor(Math.random() * elements.length)];
-    if (!randomElements.includes(key)) randomElements.push(key);
-  }
-
-  let loaded = 0;
-  const complete = () => ++loaded === 3 && (container.style.opacity = "1");
-  const fragment = document.createDocumentFragment();
-
-  for (const key of randomElements) {
-    const { author } = data[key];
-    const img = Object.assign(document.createElement("img"), {
-      src: getImagePath(basicLink, "header/desktop", author),
-      srcset: `${getImagePath(
-        basicLink,
-        "header/mobile",
-        author,
-      )} 300w, ${getImagePath(basicLink, "header/desktop", author)} 2400w`,
-      sizes: "100vw",
-      alt: author,
-      onload: complete,
-    });
-
-    const wrapper = document.createElement("div");
-    wrapper.appendChild(img);
-    fragment.appendChild(wrapper);
-  }
-
-  container.appendChild(fragment);
-
-  caption.textContent += `${randomElements
-    .map((key) => data[key].author)
-    .join(", ")}`;
-}; // Создание картинки в шапке
 const renderSlides = (object) => {
   const fragment = document.createDocumentFragment();
 
@@ -92,17 +58,17 @@ const renderSlides = (object) => {
 
       const artistAndName = `${data.author} '${key}'`;
 
+      const { src, srcset } = createResponsiveImage(
+        basicLink,
+        key,
+        "covers",
+        872,
+        [320, 640, 872],
+      );
+
       img.style.opacity = "0";
-      img.src = getImagePath(basicLink, "covers/872", key);
-      img.srcset = `${getImagePath(
-        basicLink,
-        "covers/320",
-        key,
-      )} 320w, ${getImagePath(
-        basicLink,
-        "covers/640",
-        key,
-      )} 640w, ${getImagePath(basicLink, "covers/872", key)} 872w`;
+      img.src = src;
+      img.srcset = srcset;
       img.alt = artistAndName;
       showImage(img);
 
@@ -137,6 +103,7 @@ const renderSlides = (object) => {
 }; // Вывод элементов в структуру HTML
 bodyElements.navigation.addEventListener("click", handleNavigationClick); // Обработчик кликов по навигации
 document.addEventListener("DOMContentLoaded", () => {
+  document.body.classList.add(section); // Название секции классом для body
   changingTheme(); // Смена темы
   switchingStickinessHeader(bodyElements.title, bodyElements.header); // Липкий выезжающий header
 
@@ -144,6 +111,10 @@ document.addEventListener("DOMContentLoaded", () => {
     currentData,
     bodyElements.headerImages,
     bodyElements.headerImagesCaption,
+    {
+      getKey: (item) => item.author,
+      filterFn: (item) => item.photo,
+    },
   ); // Создание картинки в шапке
 
   renderSlides(currentData); // Вывод элементов в структуру HTML
@@ -151,8 +122,9 @@ document.addEventListener("DOMContentLoaded", () => {
   initApp(
     bodyElements,
     dataLength,
-    renderAuthorLinks,
-    allLinks,
+    renderLastArticlesAndDate,
+    coversLinks,
+    listsLinks,
     createNavigation,
     updateActiveLink,
   ); // Общая для всех инициализация

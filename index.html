@@ -157,7 +157,7 @@
     <script type="module" src="./scripts/script.js"></script>
   </head>
 
-  <body class="albums">
+  <body>
     <header>
       <div class="header-content">
         <a class="header-link" href="https://shoneal.github.io/rollingstone/">
@@ -182,21 +182,8 @@
           Don’t mind the clickbait title — this is just my list of favourite
           Albums
         </p>
-        <div class="author">
-          <span>By&nbsp;</span>
-          <div class="author-content-inner">
-            <p class="author-link author-name"></p>
-            <div class="author-detail-outer">
-              <section class="author-details">
-                <h3 class="details-title author-name"></h3>
-                <nav>
-                  <ul class="nav-list"></ul>
-                </nav>
-              </section>
-            </div>
-          </div>
-        </div>
-        <time datetime="2026-06-03 12:00:00.000000-0400">June 3, 2026</time>
+        <p class="author">By&nbsp;<span class="author-name"></span></p>
+        <time></time>
         <figure class="featured-media">
           <div class="featured-image">
             <div class="figure"></div>
@@ -219,6 +206,24 @@
           <div class="slide-music-players"></div>
         </div>
       </article>
+    </template>
+
+    <template id="last-articles-template">
+      <section class="last-articles">
+        <h2 class="section-heading">Last articles</h2>
+        <div class="cards">
+          <div class="card">
+            <a href="" target="_blank">
+              <div class="card-image-wrapper">
+                <div>
+                  <img />
+                </div>
+              </div>
+              <h3></h3>
+            </a>
+          </div>
+        </div>
+      </section>
     </template>
 
     <template id="apple-logo">
