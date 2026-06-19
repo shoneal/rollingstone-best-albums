@@ -108,6 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
   switchingStickinessHeader(bodyElements.title, bodyElements.header); // Липкий выезжающий header
 
   initializeHeaderImages(
+    basicLink,
     currentData,
     bodyElements.headerImages,
     bodyElements.headerImagesCaption,
