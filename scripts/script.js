@@ -59,6 +59,7 @@ const renderSlides = (object) => {
       const artistAndName = `${data.author} '${key}'`;
 
       const { src, srcset } = createResponsiveImage(
+        getImagePath,
         basicLink,
         key,
         "covers",
