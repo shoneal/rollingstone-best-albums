@@ -12,12 +12,12 @@ import {
   getImagePath,
   debounce,
 } from "https://shoneal.github.io/rollingstone/scripts/utils.js";
+import { renderLastArticlesAndDate } from "https://shoneal.github.io/rollingstone/scripts/last-articles.js";
 import {
   initBodyElements,
   getSectionContext,
   createResponsiveImage,
   initializeHeaderImages,
-  renderLastArticlesAndDate,
   createNavigation,
   updateActiveLink,
   handleNavigationClick,
@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
   switchingStickinessHeader(bodyElements.title, bodyElements.header); // Липкий выезжающий header
 
   initializeHeaderImages(
-  getImagePath,
+    getImagePath,
     basicLink,
     currentData,
     bodyElements.headerImages,
@@ -122,10 +122,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   renderSlides(currentData); // Вывод элементов в структуру HTML
 
+  renderLastArticlesAndDate(
+    listsLinks,
+    coversLinks,
+    bodyElements.url,
+    4,
+    "slide",
+    "last",
+    bodyElements.time,
+    data,
+  ); // Добавление последних ссылок автора и времени публикации страницы
+
   initApp(
     bodyElements,
     dataLength,
-    renderLastArticlesAndDate,
     coversLinks,
     listsLinks,
     createNavigation,
