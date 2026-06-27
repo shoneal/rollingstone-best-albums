@@ -114,6 +114,9 @@ document.addEventListener("DOMContentLoaded", () => {
     currentData,
     bodyElements.headerImages,
     bodyElements.headerImagesCaption,
+    true,
+    false,
+    3,
     {
       getKey: (item) => item.author,
       filterFn: (item) => item.photo,
